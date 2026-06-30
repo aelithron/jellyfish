@@ -1,4 +1,4 @@
-import { SignIn } from "./auth.module";
+import SignIn from "./auth.module";
 
 export default function Home() {
   return (

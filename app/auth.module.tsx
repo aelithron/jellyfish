@@ -7,7 +7,7 @@ import { UserDto } from "@jellyfin/sdk/lib/generated-client/models";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-export function SignIn() {
+export default function SignIn() {
   const router = useRouter();
   const [jfAPI, setJFAPI] = useState<Api | null>(null);
   const [stage, setStage] = useState<"server" | "credentials">("server");
