@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Jellyfish",
-  description: "Fish up",
+  description: "Fish up media from a Jellyfin library!",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
