@@ -1,22 +1,30 @@
 "use client";
 import jellyfin from "@/utils/jellyfin";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Api } from "@jellyfin/sdk";
 import { getUserApi } from "@jellyfin/sdk/lib/utils/api/user-api";
 import { UserDto } from "@jellyfin/sdk/lib/generated-client/models";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export function SignIn() {
+  const router = useRouter();
   const [jfAPI, setJFAPI] = useState<Api | null>(null);
   const [stage, setStage] = useState<"server" | "credentials">("server");
   const [addr, setAddr] = useState<string>("");
   const [publicUsers, setPublicUsers] = useState<UserDto[]>([]);
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [loggedInPrompt, setLoggedInPrompt] = useState<boolean>(false);
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (window.localStorage.getItem("server") && window.localStorage.getItem("token")) setLoggedInPrompt(true)
+  }, []);
   async function loadServer(e: React.SubmitEvent) {
     e.preventDefault();
     const server = jellyfin.discovery.findBestServer(await jellyfin.discovery.getRecommendedServerCandidates(addr));
     if (!server) {
-      alert("This server couldn't be found! Please check your server address.");
+      alert("This server couldn't be found, please check the server address.");
       return;
     }
     const api = jellyfin.createApi(addr);
@@ -27,6 +35,35 @@ export function SignIn() {
   }
   async function authenticate(e: React.SubmitEvent) {
     e.preventDefault();
+    let user;
+    try {
+      user = await getUserApi(jfAPI!).authenticateUserByName({ authenticateUserByName: { Username: username, Pw: password } });
+    } catch {
+      alert("There was an error signing you in, please check that your credentials are right and try again!");
+      return;
+    }
+    if (!user || !user.data.AccessToken) {
+      alert("There was an error signing you in, please check that your credentials are right and try again!");
+      return;
+    }
+    window.localStorage.setItem("server", addr);
+    window.localStorage.setItem("token", user.data.AccessToken);
+    router.push("/fish");
+  }
+  if (loggedInPrompt) {
+    return (
+      <div className="flex flex-col gap-2 justify-center text-center">
+        <h1 className="text-lg">You&apos;re already logged in!</h1>
+        <div className="flex gap-2 text-center justify-center">
+          <Link href={"/fish"} className="hover:text-sky-500 bg-sky-900 rounded-xl py-1 px-2">Fish!</Link>
+          <button onClick={() => {
+            window.localStorage.removeItem("server");
+            window.localStorage.removeItem("token");
+            setLoggedInPrompt(false);
+          }} className="hover:text-sky-500 bg-red-500 rounded-xl py-1 px-2">Log Out</button>
+        </div>
+      </div>
+    );
   }
   return (
     <div>
