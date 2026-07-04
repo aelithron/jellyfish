@@ -51,11 +51,11 @@ export default function Fish() {
   }
   return (
     <div className="flex flex-col p-8 gap-2">
-      <div className="fixed bottom-8 left-1/2 -translate-x-1/2">
+      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-20">
         <button onClick={fish} disabled={isFishing} className={`${!isFishing ? "bg-sky-900" : "bg-sky-950 text-slate-400"} p-2 rounded-xl text-lg`}>{isFishing ? "Fishing..." : "Fish!"}</button>
       </div>
       <div className="absolute bottom-8 right-1/4">
-        <Image src={isFishing ? rodDown : rodUp} alt="Fishing rod" className={isFishing ? "h-80 w-auto" : "w-80 h-auto"} />
+        <Image src={isFishing ? rodDown : rodUp} alt="Fishing rod" className={isFishing ? "h-80 w-auto" : "w-80 h-auto"} loading="eager" />
       </div>
       <div className={(item && !isFishing) ? "flex gap-2 justify-between" : ""}>
         <div className="flex flex-col w-full">

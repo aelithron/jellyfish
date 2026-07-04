@@ -69,8 +69,9 @@ export default function SignIn() {
     <div>
       {stage === "server" && <form onSubmit={loadServer} className="flex flex-col gap-2">
         <label htmlFor="server">Server</label>
-        <input value={addr} onChange={(e) => setAddr(e.target.value)} id="server" className="border-2 border-black bg-slate-500 text-black p-1 rounded-xl" />
+        <input value={addr} onChange={(e) => setAddr(e.target.value)} id="server" className="border-2 border-black bg-slate-500 text-black p-1 rounded-xl mx-auto w-fit" />
         <button type="submit" className="hover:text-sky-500">Continue</button>
+        <p className="mt-4 text-sm">Tip: You can use <code onClick={() => setAddr("https://demo.jellyfin.org/stable")} className="underline hover:text-sky-500">https://demo.jellyfin.org/stable</code> to test!</p>
       </form>}
       {stage === "credentials" && <form onSubmit={authenticate} className="flex flex-col gap-2">
         <div className="flex flex-col gap-2">
