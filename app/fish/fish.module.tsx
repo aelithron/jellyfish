@@ -5,6 +5,9 @@ import { useState } from "react";
 import { getItemsApi } from "@jellyfin/sdk/lib/utils/api/items-api";
 import { BaseItemDto, BaseItemKind } from "@jellyfin/sdk/lib/generated-client/models";
 import noImage from "@/public/no_image.webp";
+import rodDown from "@/public/rod_down.webp";
+import rodUp from "@/public/rod_up.webp";
+import Image from "next/image";
 
 export default function Fish() {
   const router = useRouter();
@@ -50,6 +53,9 @@ export default function Fish() {
     <div className="flex flex-col p-8 gap-2">
       <div className="fixed bottom-8 left-1/2 -translate-x-1/2">
         <button onClick={fish} disabled={isFishing} className={`${!isFishing ? "bg-sky-900" : "bg-sky-950 text-slate-400"} p-2 rounded-xl text-lg`}>{isFishing ? "Fishing..." : "Fish!"}</button>
+      </div>
+      <div className="absolute bottom-8 right-1/4">
+        <Image src={isFishing ? rodDown : rodUp} alt="Fishing rod" className={isFishing ? "h-80 w-auto" : "w-80 h-auto"} />
       </div>
       <div className={(item && !isFishing) ? "flex gap-2 justify-between" : ""}>
         <div className="flex flex-col w-full">
