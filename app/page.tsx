@@ -1,4 +1,6 @@
 import SignIn from "./auth.module";
+import notByAI from "@/public/not-by-ai.svg";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -14,6 +16,10 @@ export default function Home() {
           <SignIn />
         </div>
       </div>
+      <footer className="flex gap-2 justify-between py-4 px-8 absolute bottom-0 w-full align-middle items-center">
+        <a href="https://github.com/aelithron/jellyfish" target="_blank" className="hover:text-sky-500 underline">Source</a>
+        <a href="https://notbyai.fyi" target="_blank"><Image src={notByAI} alt="Developed by a human, not by AI!" /></a>
+      </footer>
     </main>
   );
 }
