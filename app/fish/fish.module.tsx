@@ -53,7 +53,7 @@ export default function Fish() {
       </div>
       <div className={(item && !isFishing) ? "flex gap-2 justify-between" : ""}>
         <div className="flex flex-col w-full">
-          <div className="bg-violet-700 rounded-md p-2 gap-2 w-fit mr-auto">
+          <div className="bg-violet-700/40 rounded-md p-2 gap-2 w-fit mr-auto">
             <h2 className="text-xl font-semibold">Media</h2>
             <div className="flex gap-2 align-middle items-center">
               <input type="checkbox" checked={musicOn} onChange={(e) => setMusicOn(e.target.checked)} />
@@ -78,7 +78,7 @@ export default function Fish() {
           </div>
         </div>
         {(item && !isFishing) && <div className="flex flex-col justify-end w-full">
-          <div className="bg-violet-700 rounded-md p-2 text-center justify-center items-center w-fit ml-auto">
+          <div className="bg-violet-700/40 rounded-md p-2 text-center justify-center items-center w-fit ml-auto">
             {/* eslint-disable-next-line @next/next/no-img-element*/}
             <img src={`${window.localStorage.getItem("server")}/Items/${item.Id}/Images/Primary`} alt="Item image (from Jellyfin)" className="w-48 h-auto rounded-md mx-auto" onError={(e) => { e.currentTarget.src = noImage.src }} />
             <h1 className="mt-2">{getIcon(item.Type!)} {item.Name}</h1>
