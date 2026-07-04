@@ -1,7 +1,10 @@
 import SignIn from "./auth.module";
 import notByAI from "@/public/not-by-ai.svg";
 import Image from "next/image";
+import type { Metadata } from "next";
 
+export const dynamic = "force-dynamic";
+export const metadata: Metadata = { title: "Sign In | Jellyfish" };
 export default function Home() {
   return (
     <main className="flex flex-col min-h-screen">
